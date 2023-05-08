@@ -36,7 +36,11 @@ public class StudentDaoJDBC implements StudentDao {
             statement.setString(1, obj.getName());
             statement.setString(2, obj.getEmail());
             statement.setDouble(3, obj.getAge());
-            statement.setInt(4, obj.getCourse().getId());
+            if (obj.getCourse() != null) {
+                statement.setInt(4, obj.getCourse().getId());
+            } else {
+                statement.setNull(4, java.sql.Types.INTEGER);
+            }
 
             int rowsAffected = statement.executeUpdate();
 

@@ -48,7 +48,7 @@ public class Course implements Serializable {
 
         StringBuilder sb = new StringBuilder();
 
-        sb.append("Id do curso: " + id + ", ");
+        sb.append("Id do curso: " + this.id + ", ");
         sb.append("Curso: " + this.name + ", ");
         sb.append("Id professor: " + teacher.getId() + ", ");
         sb.append("Professor: " + teacher.getName() + ", ");

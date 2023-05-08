@@ -56,7 +56,8 @@ public class StudentDaoJDBC implements StudentDao {
             }
 
         } catch (SQLException e) {
-            throw new DbException("erro");
+            throw new DbException(e.getMessage());
+
         } finally {
             DB.closeStatement(statement);
         }

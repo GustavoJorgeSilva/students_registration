@@ -102,11 +102,28 @@ public class StudentsregistrationsApplication {
                                         System.out.print("What is the id of the course in which the student is registered? :");
                                         int enrolledCourseId = leitor.nextInt();
                                         leitor.nextLine();
-
                                         Course course = courseDao.findById(enrolledCourseId);
-                                        Student student = new Student(nameStudent, emailStudent, ageStudent, course);
-                                        studentDao.insert(student);
-                                        System.out.println("Done! The student was registered with the ID: " + student.getId());
+
+                                        System.out.println("The data entered were: ");
+                                        System.out.println("Name: " + nameStudent);
+                                        System.out.println("Age: " + ageStudent);
+                                        System.out.println("Email: " + emailStudent);
+                                        System.out.println("Reported course: " + course);
+                                        System.out.println();
+                                        System.out.println("Do you want to continue? Y/N");
+                                        String answer = leitor.nextLine().toLowerCase();
+
+                                        if (answer.equals("y")){
+                                            Student student = new Student(nameStudent, emailStudent, ageStudent, course);
+                                            studentDao.insert(student);
+                                            System.out.println("Done! The student was registered with the ID: " + student.getId());
+                                        }
+                                        if (answer.equals("n")){
+                                            aux = true;
+                                        }
+
+
+
 
                                     }
 

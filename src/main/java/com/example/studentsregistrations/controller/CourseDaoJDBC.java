@@ -122,7 +122,7 @@ public class CourseDaoJDBC implements CourseDao {
 
         try {
 
-            statement = connection.prepareStatement("SELECT c.*, t.id as id, t.teacher_name as teacher_name, t.age as age, t.email as email " +
+            statement = connection.prepareStatement("SELECT c.*, t.id as teacher_id, t.teacher_name as teacher_name, t.age as age, t.email as email " +
                     "FROM courses c " +
                     "INNER JOIN teacher t ON c.teacher_id = t.id " +
                     "WHERE c.id = ?");
@@ -158,7 +158,7 @@ public class CourseDaoJDBC implements CourseDao {
 
         try {
 
-            statement = connection.prepareStatement("select courses.*,teacher_name as teacher_name, teacher_id as id, age as age, email as email " +
+            statement = connection.prepareStatement("select courses.*,teacher_name as teacher_name, teacher_id as teacher_id, age as age, email as email " +
                     "from courses inner join teacher t on courses.teacher_id = t.id " +
                     "order by name");
             resultSet = statement.executeQuery();
@@ -200,7 +200,7 @@ public class CourseDaoJDBC implements CourseDao {
 
     private Teacher instantiateTeacher(ResultSet resultSet) throws SQLException {
         Teacher teacher = new Teacher();
-        teacher.setId(resultSet.getInt("id"));
+        teacher.setId(resultSet.getInt("teacher_id"));
         teacher.setAge(resultSet.getInt("age"));
         teacher.setEmail(resultSet.getString("email"));
         teacher.setName(resultSet.getString("teacher_name"));

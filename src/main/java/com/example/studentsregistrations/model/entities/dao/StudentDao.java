@@ -8,9 +8,13 @@ import java.util.List;
 public interface StudentDao {
 
     public void insert(Student obj);
+
     public void update(Student obj);
+
     public void deleteById(Integer id);
+
     public Student findById(Integer id);
+
     public List<Student> findAll();
 
 }

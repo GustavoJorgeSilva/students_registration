@@ -12,23 +12,23 @@ public class DB {
     private static Connection connection = null;
 
     public static Connection getConnection() {
-        if (connection == null){
+        if (connection == null) {
             try {
                 Properties properties = loadProperties();
                 String url = properties.getProperty("dburl");
-                connection = DriverManager.getConnection(url,properties);
-            } catch (SQLException e){
+                connection = DriverManager.getConnection(url, properties);
+            } catch (SQLException e) {
                 throw new DbException(e.getMessage());
             }
         }
         return connection;
     }
 
-    public static void closeConnection(){
-        if (connection != null){
+    public static void closeConnection() {
+        if (connection != null) {
             try {
                 connection.close();
-            } catch (SQLException e){
+            } catch (SQLException e) {
                 throw new DbException(e.getMessage());
             }
 
@@ -40,27 +40,26 @@ public class DB {
             Properties props = new Properties();
             props.load(fs);
             return props;
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new DbException(e.getMessage());
         }
     }
 
-    public static void closeStatement(Statement statement){
-        if (statement != null){
+    public static void closeStatement(Statement statement) {
+        if (statement != null) {
             try {
                 statement.close();
-            } catch (SQLException e){
+            } catch (SQLException e) {
                 throw new DbException(e.getMessage());
             }
         }
     }
 
-    public static void closeResultSet(ResultSet resultSet){
-        if (resultSet != null){
+    public static void closeResultSet(ResultSet resultSet) {
+        if (resultSet != null) {
             try {
                 resultSet.close();
-            } catch (SQLException e){
+            } catch (SQLException e) {
                 throw new DbException(e.getMessage());
             }
         }

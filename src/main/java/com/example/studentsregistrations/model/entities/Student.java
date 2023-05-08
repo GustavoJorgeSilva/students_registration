@@ -71,7 +71,6 @@ public class Student implements Serializable {
     }
 
 
-
     @Override
     public String toString() {
 
@@ -86,7 +85,6 @@ public class Student implements Serializable {
 
         return sb.toString();
     }
-
 
 
 }

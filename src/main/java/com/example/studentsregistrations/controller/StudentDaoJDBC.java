@@ -159,11 +159,11 @@ public class StudentDaoJDBC implements StudentDao {
 
         try {
 
-            statement = connection.prepareStatement("SELECT students.id, students.name AS student_name, students.email, students.age, c.id AS course_id, c.name AS course_name, " +
-                    "       t.id AS teacher_id, t.teacher_name AS teacher_name, t.email AS teacher_email, t.age AS teacher_age " +
-                    "FROM students students " +
-                    "INNER JOIN courses c ON students.courseId = c.id " +
-                    "INNER JOIN teacher t ON c.teacher_id = t.id");
+            statement = connection.prepareStatement("SELECT students.id, students.name AS student_name, students.email, students.age, c.id AS course_id, c.name AS course_name, \n" +
+                    "    t.id AS teacher_id, t.teacher_name, t.email AS teacher_email, t.age AS teacher_age \n" +
+                    "FROM students \n" +
+                    "LEFT JOIN courses c ON students.courseId = c.id \n" +
+                    "LEFT JOIN teacher t ON c.teacher_id = t.id;");
 
             resultSet = statement.executeQuery();
             List<Student> students = new ArrayList<>();
@@ -171,12 +171,14 @@ public class StudentDaoJDBC implements StudentDao {
 
             while (resultSet.next()) {
                 Teacher teacher = instantiateTeacher(resultSet);
-                Course course = instantiateCourse(resultSet, teacher);
-                course = map.get(resultSet.getInt("course_id"));
-
-                if (course == null) {
-                    course = instantiateCourse(resultSet, teacher);
-                    map.put(resultSet.getInt("course_id"), course);
+                Integer courseId = resultSet.getInt("course_id");
+                Course course = null;
+                if (!resultSet.wasNull()) {
+                    course = map.get(courseId);
+                    if (course == null) {
+                        course = instantiateCourse(resultSet, teacher);
+                        map.put(courseId, course);
+                    }
                 }
 
                 Student student = instantiateStudent(resultSet, course);
